@@ -1,0 +1,252 @@
+ulimit -n 8800
+
+umask 077
+
+
+chdev -l sys0 -a maxuproc='256'
+
+
+
+gunzip < BPM_Adv_PS_V85_AIX_1_of_2.tar.gz | tar -xvf -
+
+
+
+gunzip < BPM_Adv_PS_V85_AIX_2_of_2.tar.gz | tar -xvf -
+
+
+IM Install:
+
+
+/usr/IBM/BPMSoft/BPMSoft/IM/tools
+
+
+sudo ./imcl install com.ibm.cic.agent -repositories /usr/IBM/BPMSoft/BPMSoft/IM/repository.config -installationDirectory /usr/IBM/BPMSoft/BPMSoft/IM/eclipse -accessRights admin -acceptLicense
+
+
+WAS INstall:
+
+
+/usr/IBM/BPMSoft/BPMSoft/IM/eclipse
+
+
+
+sudo ./imcl install com.ibm.websphere.ND.v85,com.ibm.sdk.6_64bit,core.feature,ejbdeploy,thinclient,embeddablecontainer -repositories /usr/IBM/BPMSoft/BPMSoft/repository/WAS/repository.config -installationDirectory /usr/IBM/BPM/v85 -acceptLicense -sVP -log was.install.log
+
+
+
+
+
+
+
+
+
+
+
+
+BPM Install:
+
+
+ulimit -d unlimited 
+
+ulimit -f unlimited 
+
+
+sudo ./imcl install com.ibm.bpm.PS.v85,AdvancedProcessServer.NonProduction  -repositories /usr/IBM/BPMSoft/BPMSoft/repository/repository.config -installationDirectory /usr/IBM/BPM/v85 -acceptLicense -sVP -log bpm.install.log
+
+
+
+
+**************************************************************************************
+
+Node 1
+
+
+
+ulimit -n 8800
+
+umask 077
+
+
+chdev -l sys0 -a maxuproc='256'
+
+
+
+gunzip < BPM_Adv_PS_V85_AIX_1_of_2.tar.gz | tar -xvf -
+
+
+
+gunzip < BPM_Adv_PS_V85_AIX_2_of_2.tar.gz | tar -xvf -
+
+
+
+IM Install:
+
+
+/usr/IBM/BPMSoft/BPMSoft/IM/tools
+
+
+
+sudo ./imcl install com.ibm.cic.agent -repositories /usr/IBM/Soft/IM/repository.config -installationDirectory /usr/IBM/IM/eclipse -accessRights admin -acceptLicense
+
+
+ 
+
+
+
+WAS INstall:
+
+
+/usr/IBM/IM/eclipse/tools
+
+
+
+sudo ./imcl install com.ibm.websphere.ND.v85,com.ibm.sdk.6_64bit,core.feature,ejbdeploy,thinclient,embeddablecontainer -repositories /usr/IBM/Soft/repository/WAS/repository.config -installationDirectory /usr/IBM/BPM/v85 -acceptLicense -sVP -log was.install.log
+
+
+
+
+BPM Install:
+
+
+sudo ./imcl install com.ibm.bpm.PS.v85,AdvancedProcessServer.NonProduction  -repositories /usr/IBM/Soft/repository/repository.config -installationDirectory /usr/IBM/BPM/v85 -acceptLicense -sVP -log bpm.install.log
+
+
+
+
+
+
+
+
+************************************************************************************************************************
+
+
+
+**************************************************************************************
+
+Node 2
+
+
+
+ulimit -n 8800
+
+umask 077
+
+
+chdev -l sys0 -a maxuproc='256'
+
+
+
+gunzip < BPM_Adv_PS_V85_AIX_1_of_2.tar.gz | tar -xvf -
+
+
+
+gunzip < BPM_Adv_PS_V85_AIX_2_of_2.tar.gz | tar -xvf -
+
+
+
+IM Install:
+
+
+/usr/IBM/soft/IM/tools
+
+
+
+sudo ./imcl install com.ibm.cic.agent -repositories /usr/IBM/soft/IM/repository.config -installationDirectory /usr/IBM/IM/eclipse -accessRights admin -acceptLicense
+
+
+ 
+
+
+
+WAS INstall:
+
+
+/usr/IBM/IM/eclipse/tools
+
+
+
+sudo ./imcl install com.ibm.websphere.ND.v85,com.ibm.sdk.6_64bit,core.feature,ejbdeploy,thinclient,embeddablecontainer -repositories /usr/IBM/soft/repository/WAS/repository.config -installationDirectory /usr/IBM/BPM/v85 -acceptLicense -sVP -log was.install.log
+
+
+
+
+BPM Install:
+
+/usr/IBM/IM/eclipse/tools
+
+
+sudo ./imcl install com.ibm.bpm.PS.v85,AdvancedProcessServer.NonProduction  -repositories /usr/IBM/soft/repository/repository.config -installationDirectory /usr/IBM/BPM/v85 -acceptLicense -sVP -log bpm.install.log
+
+
+
+dpwpsndap2:/usr/IBM/IM/eclipse/tools # su - sysadmin
+$ cd /usr/IBM/IM/eclipse/tools
+$ sudo ./imcl listInstalledPackages -installationDirectory /usr/IBM/BPM/v85
+com.ibm.bpm.PS.v85_8.5.0.20130525_1340
+com.ibm.websphere.ND.v85_8.5.2.20130327_1831
+8.5.0.0-WS-WAS-IFPM87094_8.5.0.20130418_1028
+8.5.0.0-WS-WAS-IFPM87748_8.5.0.20130424_1529
+8.5.0.2-WS-WAS-IFPM86055_8.5.2.20130417_1450
+8.5.0.2-WS-WASProd-IFPM85990_8.5.2.20130425_1330
+8.5.0.2-WS-WASProd-IFPM87974_8.5.2.20130512_1528
+
+
+********************************************************************************************************************
+
+
+DMGR:
+
+sh BPMConfig.sh -create -de AdvancedOnly-ThreeClusters-Oracle-SMT.properties
+
+
+
+dpwpsmgna1:/usr/IBM/BPM/v85/bin # sh BPMConfig.sh -create -de AdvancedOnly-ThreeClusters-Oracle-SMT.properties
+Logging to file /usr/IBM/BPM/v85/logs/config/BPMConfig_20141228-022341.log.
+CWMCB0713I: Node Node1 is not a local node, skipping.
+CWMCB0713I: Node Node2 is not a local node, skipping.
+Validating the profile registry.
+[]
+Configuring the deployment manager.
+Creating the deployment manager profile.
+INSTCONFSUCCESS: Success: Profile DmgrProfile now exists. Please consult /usr/IBM/BPM/v85/profiles/DmgrProfile/logs/AboutThisProfile.txt for more information about this profile.
+Generating SQL files.
+Provisioning cell.
+Generating database configuration files to /usr/IBM/BPM/v85/profiles/DmgrProfile/dbscripts/PSCell1.
+Configuring the cell.
+XL TXE-J compiling stylesheet: null
+XL TXE-J compiling stylesheet: null
+XL TXE-J compiling stylesheet: null
+XL TXE-J compiling stylesheet: null
+Configuring the deployment manager.
+Provisioning deployment environment.
+Generating database configuration files to /usr/IBM/BPM/v85/profiles/DmgrProfile/dbscripts/De1.
+Performing security configuration.
+Creating clusters.
+Configuring data sources.
+Configuring the database(s).
+Configuring clusters.
+Saving configuration changes, please be patient...
+BPMConfig completed successfully.
+dpwpsmgna1:/usr/IBM/BPM/v85/bin # cd /
+
+
+**************************************************************************************************
+
+
+
+Node 1
+
+sh BPMConfig.sh -create -de AdvancedOnly-ThreeClusters-Oracle-SMT.properties
+
+******************************************************************************************************
+
+Node 2
+
+sh BPMConfig.sh -create -de AdvancedOnly-ThreeClusters-Oracle-SMT.properties
+
+********************************************************************************************************
+
+
+
+
+
